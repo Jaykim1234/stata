@@ -1,0 +1,14 @@
+1.READING AND UNDERSTANDING AN EMPIRICAL PAPER
+
+2.PANEL DATA – EFFECTS OF CHANGES IN REGULATION 
+stock-listed companies from 15 Continental European countries over the years 2003–2017.
+
+3.EVENT STUDY – STOCK MARKET REACTIONS TO EARNINGS ANNOUNCEMENTS
+
+HYPOTHESIS 1 (null): Regulation Random did not change the profitability of companies.
+
+HYPOTHESIS 2 (alternative): Accounting information contains information that is relevant for the 
+stock market valuation of companies. 
+
+HYPOTHESIS 3 (alternative): Accounting information is less relevant for stock market valuations
+when companies do not have a Big 4 auditor. 
