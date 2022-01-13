@@ -36,8 +36,8 @@ histogram TDC1_adinf_win, fraction
 by YEAR, sort: egen TDC1_adinf_win_a = mean(TDC1_adinf_win)
 by YEAR, sort: egen TDC1_adinf_win_h = median(TDC1_adinf_win)
 
-line TDC1_adinf_win_a TDC1_adinf_win_h YEAR, connect(line) scheme(s1mono) msize(small) xlabel(1992(2)2020)
-
+// line TDC1_adinf_win_a TDC1_adinf_win_h YEAR, connect(line) scheme(s1mono) msize(small) xlabel(1992(2)2020) 
+line TDC1_adinf_win_a TDC1_adinf_win_h YEAR, connect(line) lpattern(solid dash) lwidth(*1.5 *1.5) lcolor(blue red) scheme(s1mono) msize(small) xlabel(1992(2)2020)  ytitle("Mean fraction of options/stock compensation") title("The mean fractions of options and stock compensation")
 
 // Compute the fraction of options, stock, bonus and salary in total pay. Is there a
 // complication regarding this data? Are these data available for the entire time
@@ -46,10 +46,10 @@ gen frac_option =  OPTION_AWARDS_win/TDC1_win
 gen frac_STOCK  =  STOCK_AWARDS_win/TDC1_win
 gen frac_SALARY =  SALARY_win/TDC1_win
 gen frac_BONUS  =  BONUS_win/TDC1_win
-by YEAR, sort: egen frac_option_mean =  mean(OPTION_AWARDS_win/TDC1_win)
+by YEAR, sort: egen frac_OPTION_mean =  mean(OPTION_AWARDS_win/TDC1_win)
 by YEAR, sort: egen frac_STOCK_mean  =  mean(STOCK_AWARDS_win/TDC1_win)
 
 // Plot the mean fractions of options and stock compensation per year (two lines in
 // the same graph with y-axis: yearly mean fraction of options / stock compensation,
 // x-axis: year).
-line frac_option_mean frac_STOCK_mean YEAR, connect(line) scheme(s1mono) msize(small) xlabel(1992(2)2020)
+graph twoway line frac_OPTION_mean frac_STOCK_mean YEAR, connect(line) lpattern(solid dash) lwidth(*1.5 *1.5) lcolor(blue red) scheme(s1mono) msize(small) xlabel(1992(2)2020)  ytitle("Mean fraction of options/stock compensation") title("The mean fractions of options and stock compensation")
