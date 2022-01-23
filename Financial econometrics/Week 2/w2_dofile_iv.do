@@ -10,8 +10,8 @@ cap cd "C:\Users\user\Desktop\master\Semester 1\Applied financial econometrics\T
 
 
 
-
 /*
+
 // *************************************************
 //PART A
 
@@ -37,18 +37,10 @@ regress c y, robust
 // which you can verify by doing simulations (see q 5)
 
 
-
-
-
-
-
-	
 //4
 test y==0.5
 // the test that OLS gives us the true value of 0.5 is clearly rejected and will probably always be rejected
 	
-
-
 	
 // 5 and 6: For the repetitions, we will use the syntax forv i=1/8 { commands }
 // that tells stata to repeat the commands 8 times. The first four repetitions will be with 100 obs,
@@ -68,7 +60,6 @@ forv i = 1 / 8 {
 	regress c y, robust
 	test y==0.5
 }
-
 
 
 
