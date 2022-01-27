@@ -1,0 +1,81 @@
+cls
+clear all
+
+cd "C:\Users\Jinhyun\Documents\GitHub\stata\Empricial method in Finance\Individual assingment"
+
+use "Main File.dta"
+g ret_asst = atq/RET
+g total_debt = dlc + dltt
+g debt_asst = total_debt/atq
+egen ln_asset = log(atq) // Stock volatility
+egen ch = log(ch) //ln(Cash)
+egen cf_var = sd(oancfy)// oancf : Operating Activities - Net Cash Flow
+
+generate BClaw = 0 
+replace BClaw = 1 if fyear>= 1989 & state == "AB"
+replace BClaw = 1 if fyear>= 25 & state == "AK"
+replace BClaw = 1 if fyear>= 25 & state == "AL"
+replace BClaw = 1 if fyear>= 1989 & state == "AR"
+replace BClaw = 1 if fyear>= 25 & state == "AZ"
+replace BClaw = 1 if fyear>= 25 & state == "BC"
+replace BClaw = 1 if fyear>= 1989 & state == "CA"
+replace BClaw = 1 if fyear>= 25 & state == "CO"
+replace BClaw = 1 if fyear>= 25 & state == "CT"
+replace BClaw = 1 if fyear>= 1989 & state == "DC"
+replace BClaw = 1 if fyear>= 25 & state == "DE"
+replace BClaw = 1 if fyear>= 25 & state == "FL"
+replace BClaw = 1 if fyear>= 1989 & state == "GA"
+replace BClaw = 1 if fyear>= 25 & state == "HI"
+replace BClaw = 1 if fyear>= 25 & state == "IA"
+replace BClaw = 1 if fyear>= 1989 & state == "ID"
+replace BClaw = 1 if fyear>= 25 & state == "IL"
+replace BClaw = 1 if fyear>= 25 & state == "IN"
+replace BClaw = 1 if fyear>= 25 & state == "KS"
+replace BClaw = 1 if fyear>= 1989 & state == "KY"
+replace BClaw = 1 if fyear>= 25 & state == "LA"
+replace BClaw = 1 if fyear>= 25 & state == "MA"
+replace BClaw = 1 if fyear>= 1989 & state == "MB"
+replace BClaw = 1 if fyear>= 25 & state == "MD"
+replace BClaw = 1 if fyear>= 25 & state == "ME"
+replace BClaw = 1 if fyear>= 1989 & state == "MI"
+replace BClaw = 1 if fyear>= 25 & state == "MN"
+replace BClaw = 1 if fyear>= 25 & state == "MO"
+replace BClaw = 1 if fyear>= 1989 & state == "MS"
+replace BClaw = 1 if fyear>= 25 & state == "MT"
+replace BClaw = 1 if fyear>= 25 & state == "NB"
+replace BClaw = 1 if fyear>= 1989 & state == "NC"
+replace BClaw = 1 if fyear>= 25 & state == "ND"
+replace BClaw = 1 if fyear>= 25 & state == "NE"
+replace BClaw = 1 if fyear>= 1989 & state == "NF"
+replace BClaw = 1 if fyear>= 25 & state == "NH"
+replace BClaw = 1 if fyear>= 25 & state == "NJ"
+replace BClaw = 1 if fyear>= 1989 & state == "NM"
+replace BClaw = 1 if fyear>= 25 & state == "NS"
+replace BClaw = 1 if fyear>= 25 & state == "NV"
+replace BClaw = 1 if fyear>= 1989 & state == "NY"
+replace BClaw = 1 if fyear>= 25 & state == "OH"
+replace BClaw = 1 if fyear>= 25 & state == "OK"
+replace BClaw = 1 if fyear>= 1989 & state == "ON"
+replace BClaw = 1 if fyear>= 25 & state == "OR"
+replace BClaw = 1 if fyear>= 25 & state == "PA"
+replace BClaw = 1 if fyear>= 1989 & state == "PE"
+replace BClaw = 1 if fyear>= 25 & state == "PR"
+replace BClaw = 1 if fyear>= 25 & state == "QC"
+replace BClaw = 1 if fyear>= 1989 & state == "RI"
+replace BClaw = 1 if fyear>= 25 & state == "SC"
+replace BClaw = 1 if fyear>= 25 & state == "SD"
+replace BClaw = 1 if fyear>= 1989 & state == "SK"
+replace BClaw = 1 if fyear>= 25 & state == "TN"
+replace BClaw = 1 if fyear>= 25 & state == "TX"
+replace BClaw = 1 if fyear>= 1989 & state == "UT"
+replace BClaw = 1 if fyear>= 25 & state == "VA"
+replace BClaw = 1 if fyear>= 25 & state == "VI"
+replace BClaw = 1 if fyear>= 1989 & state == "VT"
+replace BClaw = 1 if fyear>= 25 & state == "WA"
+replace BClaw = 1 if fyear>= 25 & state == "WI"
+replace BClaw = 1 if fyear>= 25 & state == "WV"
+replace BClaw = 1 if fyear>= 25 & state == "WY"
+
+
+use "Main File.dta"
+egen cf_var = sd(RET)

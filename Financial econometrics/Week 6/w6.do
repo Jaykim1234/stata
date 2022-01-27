@@ -12,11 +12,11 @@ gen c_infl = 400*(ln(infl)- ln(L1.infl))
 // 4) Plot the value of infl from 1963:Q1 through 2012:Q4. Based on the plot, do you think that infl has 
 // a stochastic trend? Explain. 
 
-// scatter infl time if tin(1963:Q1,2012:Q4)
-// line infl time if tin(1963:Q1,2012:Q4)
-// line c_infl time if tin(1963:Q1,2012:Q4)
-// twoway (line infl time if tin(1963q1, 2012q4), sort), ytitle(Inflation) ytitle(, size(large)) xtitle(, size(large)) ylabel(, angle(horizontal)) scheme(s2mono) graphregion(fcolor(white) 
-// lcolor(white) ifcolor(white) ilcolor(white)) 
+scatter infl time if tin(1963:Q1,2012:Q4)
+line infl time if tin(1963:Q1,2012:Q4)
+line c_infl time if tin(1963:Q1,2012:Q4)
+twoway (line infl time if tin(1963q1, 2012q4), sort), ytitle(Inflation) ytitle(, size(large)) xtitle(, size(large)) ylabel(, angle(horizontal) scheme(s2mono) graphregion(fcolor(white) 
+lcolor(white) ifcolor(white) ilcolor(white)) 
 
 
 // Answer: yes it is stochastic
@@ -28,7 +28,7 @@ corrgram c_infl if tin(1960q1, 2012q4), lags(4)
 corrgram D.infl if tin(1960q1, 2012q4), noplot lags(4)
 // Inflations influence the future inflation positively
 
-// regress infl L1.infl L2.infl L3.infl L4.infl if tin(1963q1, 2012q4),r
+regress infl L1.infl L2.infl L3.infl L4.infl if tin(1963q1, 2012q4),r
 
 
 // 
