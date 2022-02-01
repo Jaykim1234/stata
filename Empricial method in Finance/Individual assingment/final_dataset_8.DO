@@ -5,12 +5,12 @@ cd "C:\Users\Jinhyun\Desktop\Empirical Methods in Finance\Tutorial\Individual as
 
 use "final_dataset.dta"
 
-// drop if incrop==""
-sort gvkey year
+// drop if curcd != "USD"
 
 //Question 1: GM`s Table 1 with replacing 2 acquisition rows into ln(cash) and Performance-related Exit//
-
-describe
+//
+// sort gvkey year
+sort incorp year
 xtset gvkey year
 gen BC_first = 1 if BC[_n] != BC[_n-1] & gvkey[_n]==gvkey[_n-1]
 gen BC_three_years = 1 if gvkey[_n] == gvkey[_n-1] & (BC_first!=BC_first[_n+3] | BC_first!=BC_first[_n+2] | BC_first!=BC_first[_n+1])
@@ -22,21 +22,29 @@ by gvkey: egen sum_BC = total(BC)
 by gvkey: gen No_BC = 1 if sum_BC==0
 replace No_BC = 0 if No_BC==.
 
-xtset gvkey year
+// asdoc sum lnassets roi lev cagr vol cfvol lncash delist if BC_three_years == 1, stat(mean sd) replace
+// asdoc sum lnassets roi lev cagr vol cfvol lncash delist if No_BC==1, stat(mean sd) replace
 
-asdoc sum lnassets roi lev cagr vol cfvol lncash delist if BC_three_years == 1, stat(mean sd) replace
-asdoc sum lnassets roi lev cagr vol cfvol lncash delist if No_BC==1, stat(mean sd) replace
 
-ttest lnassets, by(No_BC)
-ttest roi, by(No_BC)
-ttest lev, by(No_BC)
-ttest cagr, by(No_BC)
-ttest vol,  by(No_BC)
-ttest cfvol, by(No_BC)
-ttest lncash, by(No_BC)
-ttest lncash, by(No_BC)
-ttest delist, by(No_BC)
-ttest delist, by(No_BC)
+// eststo diff: estpost ttest lnassets roi lev cagr cfvol vol delist lncash, by(BC_three_years)
+//
+// eststo diff2: estpost ttest lnassets roi lev cagr cfvol vol delist lncash, by(No_BC)
+
+
+// esttab diff diff2 , cells("mean(pattern(1 1 0) fmt(3)) p(pattern(0 0 1) fmt(3))" sd(pattern(1 1 0) par fmt(3))) label
+//
+//
+// esttab diff diff2 using random.doc, cells("mean(pattern(1 1 0) fmt(3)) p(pattern(0 0 1) fmt(3))" sd(pattern(1 1 0) par fmt(3))) label
+
+sum lnassets roi lev cagr vol cfvol lncash delist if BC_three_years == 1
+eststo
+sum lnassets roi lev cagr vol cfvol lncash delist if No_BC==1
+eststo 
+// estpost ttest lnassets roi lev cagr cfvol vol delist lncash, by(No_BC)
+// eststo est3
+esttab 
+
+
 
 //Question 2: Replicate GM`s Table 2//
 decode staten, gen(state)
@@ -63,9 +71,10 @@ reghdfe lncash BC, absorb(gvkey state_y industry_y) vce(cluster incorp) noconsta
 outreg2 using reg1, word append 
 
 //Question 3: 14 new dummy variables as independent variables//
+sort incorp year
 gen BC_first_year = 0 
 replace BC_first_year = year if BC[_n] != BC[_n-1] & BC[_n] == 1
-by gvkey: egen max_BC_first_year = max(BC_first_year)
+by incorp: egen max_BC_first_year = max(BC_first_year)
 replace BC_first_year = max_BC_first_year if BC_first_year == 0
 drop max_BC_first_year
 
@@ -98,6 +107,8 @@ replace one_dummy_p5 = 1 if year == BC_first_year +5
 replace one_dummy_p6 = 1 if year == BC_first_year +6 
 replace one_dummy_p7 = 1 if year == BC_first_year +7 
 replace one_dummy_p8 = 1 if year == BC_first_year +8 
+
+reghdfe vol one_dummy_m5 one_dummy_m4 one_dummy_m3 one_dummy_m2  one_dummy_m1  one_dummy_0  one_dummy_p1 one_dummy_p2 one_dummy_p3 one_dummy_p4 one_dummy_p5 one_dummy_p6 one_dummy_p7 one_dummy_p8 , absorb(gvkey state_y) vce(cluster incorp) 
 
 reghdfe delist one_dummy_m5 one_dummy_m4 one_dummy_m3 one_dummy_m2  one_dummy_m1  one_dummy_0  one_dummy_p1 one_dummy_p2 one_dummy_p3 one_dummy_p4 one_dummy_p5 one_dummy_p6 one_dummy_p7 one_dummy_p8 , absorb(gvkey state_y) vce(cluster incorp) 
 
