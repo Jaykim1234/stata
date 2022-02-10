@@ -1,5 +1,5 @@
 //prepare compustat annual data 
-use "C:\Users\stank\OneDrive\Documenten\Master-Finance\Empirical Methods Finance\Main Assignment\Compustat-Annual.dta" 
+use "" 
 suduplicates report gvkey fyear
 duplicates drop fyear gvkey, force
 duplicates report cusip fyear //check for duplicates 

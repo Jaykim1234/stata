@@ -1,7 +1,7 @@
 cls
 clear all
 
-cd "C:\Users\Jinhyun\Documents\GitHub\stata\Empricial method in Finance\Individual assingment"
+cd ""
 
 use "Main File.dta"
 g ret_asst = atq/RET
